@@ -19,7 +19,7 @@ defmodule Ticker.MixProject do
   def application do
     [
       mod: {Ticker.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :corsica]
     ]
   end
 
@@ -36,7 +36,8 @@ defmodule Ticker.MixProject do
       {:phoenix_pubsub, "~> 1.1"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:plug_cowboy, "~> 2.0"},
+      {:corsica, "~> 1.0"}
     ]
   end
 end

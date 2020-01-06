@@ -1,6 +1,10 @@
 defmodule TickerWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :ticker
 
+  plug Corsica,
+    origins: ["http://localhost:8000"],
+    log: [rejected: :info, accepted: false]
+
   socket "/socket", TickerWeb.UserSocket,
     websocket: true,
     longpoll: false
