@@ -1,5 +1,11 @@
 defmodule Ticker.Chart do
-  def dummy() do
-    %{data: %{draw: [1, 2, 3]}}
+  alias Ticker.Services.Fetcher
+
+  def get_history(params) do
+    data = params["stocks"]
+    |> List.first
+    |> Fetcher.fetch
+
+    %{data: data}
   end
 end
