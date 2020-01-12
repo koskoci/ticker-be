@@ -8,6 +8,6 @@ defmodule TickerWeb.Router do
   scope "/api", TickerWeb do
     pipe_through :api
 
-    get "/", QueryController, :index
+    post "/", QueryController, :get_history
   end
 end

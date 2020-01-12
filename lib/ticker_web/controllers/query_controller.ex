@@ -2,10 +2,11 @@ defmodule TickerWeb.QueryController do
   use TickerWeb, :controller
 
   alias Ticker.Chart
-  alias Ticker.Chart.Query
 
-  def index(conn, _params) do
-    query = Chart.dummy()
-    render(conn, "index.json", query: query)
+  def get_history(conn, params) do
+    history = Chart.get_history(params)
+    IO.inspect history
+
+    render(conn, "index.json", history: history)
   end
 end
