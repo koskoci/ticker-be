@@ -6,10 +6,6 @@ defmodule TickerWeb.Endpoint do
     log: [rejected: :info, accepted: false],
     allow_headers: ["content-type"]
 
-  socket "/socket", TickerWeb.UserSocket,
-    websocket: true,
-    longpoll: false
-
   plug Plug.Static,
     at: "/",
     from: :ticker,
