@@ -1,5 +1,15 @@
 use Mix.Config
 
+api_key = System.get_env("WTD_API_KEY")
+
+if (is_nil(api_key) || api_key == "") do
+  raise """
+  Environment variable WTD_API_KEY is missing.
+  To get an api key, create an account on World Trading Data:
+  https://www.worldtradingdata.com/register
+  """
+end
+
 config :ticker, TickerWeb.Endpoint,
   http: [port: 4000],
   debug_errors: false,
