@@ -5,8 +5,6 @@ defmodule TickerWeb.QueryController do
 
   def get_history(conn, params) do
     history = Chart.get_history(params)
-    IO.inspect history
-
-    render(conn, "index.json", history: history)
+    json(conn, history)
   end
 end
