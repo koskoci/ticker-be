@@ -14,7 +14,7 @@ defmodule TickerWeb do
         root: "lib/ticker_web/templates",
         namespace: TickerWeb
 
-      import Phoenix.Controller, only: [get_flash: 1, get_flash: 2, view_module: 1]
+      import Phoenix.Controller, only: [view_module: 1]
 
       alias TickerWeb.Router.Helpers, as: Routes
     end
