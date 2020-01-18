@@ -1,4 +1,4 @@
-defmodule Ticker.Services.UrlBuilder do
+defmodule Ticker.UrlBuilder do
   def build(stock) do
     api_key = Application.get_env(:ticker, TickerWeb.Endpoint)[:api_key]
     resource = "https://api.worldtradingdata.com/api/v1/history"

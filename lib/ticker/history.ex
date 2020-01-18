@@ -1,7 +1,7 @@
-defmodule Ticker.Chart do
-  alias Ticker.Services.Fetcher
+defmodule Ticker.History do
+  alias Ticker.Fetcher
 
-  def get_history(params) do
+  def show(params) do
     data =
       params["stocks"]
       |> Enum.map(&Task.async(fn -> Fetcher.fetch_stock_history(&1) end))
