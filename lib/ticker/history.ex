@@ -1,11 +1,10 @@
 defmodule Ticker.History do
   alias Ticker.UrlBuilder
-  alias Ticker.HttpClient
 
   def show(stocks) do
     stocks_history =
       stocks
-      |> Enum.map(&Task.async(fn -> UrlBuilder.build(&1) |> HttpClient.get_history() end))
+      |> Enum.map(&Task.async(fn -> UrlBuilder.build(&1) |> history_provider().get_history() end))
       |> Enum.map(&Task.await/1)
 
     result = %{
@@ -15,10 +14,10 @@ defmodule Ticker.History do
     }
 
     result
+  end
 
-    # stocks
-    # |> Enum.map(&Task.async(fn -> UrlBuilder.build(&1) |> HttpClient.get_history() end))
-    # |> Enum.map(&Task.await/1)
+  defp history_provider do
+    Application.get_env(:ticker, TickerWeb.Endpoint)[:history_provider]
   end
 
   defp getInitialValue(stocks, name) do

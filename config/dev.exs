@@ -2,7 +2,7 @@ use Mix.Config
 
 api_key = System.get_env("WTD_API_KEY")
 
-if (is_nil(api_key) || api_key == "") do
+if is_nil(api_key) || api_key == "" do
   raise """
   Environment variable WTD_API_KEY is missing.
   To get an api key, create an account on World Trading Data:
@@ -16,7 +16,8 @@ config :ticker, TickerWeb.Endpoint,
   code_reloader: true,
   check_origin: false,
   watchers: [],
-  api_key: api_key
+  api_key: api_key,
+  history_provider: Ticker.HttpClient
 
 config :logger, :console, format: "[$level] $message\n"
 
