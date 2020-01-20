@@ -1,23 +1,7 @@
-defmodule Ticker.History do
-  alias Ticker.UrlBuilder
-
-  def show(stocks) do
-    stocks_history =
-      stocks
-      |> Enum.map(&Task.async(fn -> UrlBuilder.build(&1) |> history_provider().get_history() end))
-      |> Enum.map(&Task.await/1)
-
-    result = %{
-      history:
-        stocks_history
-        |> Enum.map(fn stock -> transform_stock(stock, getInitialValue(stocks, stock["name"])) end)
-    }
-
-    result
-  end
-
-  defp history_provider do
-    Application.get_env(:ticker, TickerWeb.Endpoint)[:history_provider]
+defmodule Ticker.Cruncher do
+  def crunch(history_response, request) do
+    history_response
+    |> Enum.map(fn stock -> transform_stock(stock, getInitialValue(request, stock["name"])) end)
   end
 
   defp getInitialValue(stocks, name) do
