@@ -1,4 +1,4 @@
-defmodule ExpectedHttpClientResponse do
+defmodule TickerWeb.Support.ExpectedHttpClientResponse do
   def logm do
     %{
       "history" => %{

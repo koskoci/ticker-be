@@ -1,4 +1,4 @@
-defmodule RespenseFixture do
+defmodule TickerWeb.Support.ExpectedResponse do
   def json do
     """
         {
@@ -110,7 +110,7 @@ defmodule RespenseFixture do
                 "ticker": "GOOG"
             }
         ]
-    }
+    }\
     """
   end
 end

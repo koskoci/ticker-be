@@ -1,4 +1,4 @@
-defmodule RequestFixture do
+defmodule TickerWeb.Support.RequestFixture do
   def json do
     """
         {
