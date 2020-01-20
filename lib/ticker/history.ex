@@ -1,18 +1,21 @@
 defmodule Ticker.History do
-  alias Ticker.Fetcher
+  alias Ticker.UrlBuilder
+  alias Ticker.HttpClient
 
-  def show(params) do
+  def show(stocks) do
     data =
-      params["stocks"]
-      |> Enum.map(&Task.async(fn -> Fetcher.fetch_stock_history(&1) end))
+      stocks
+      |> Enum.map(&Task.async(fn -> UrlBuilder.build(&1) |> HttpClient.get_history() end))
       |> Enum.map(&Task.await/1)
 
-    %{
-      history: data |> Enum.map(fn x -> transform_stock(x, params["stocks"]) end)
+    result = %{
+      history: data |> Enum.map(fn x -> transform_stock(x, stocks) end)
     }
+
+    result
   end
 
-  def transform_stock(stock_response, stocks_request) do
+  defp transform_stock(stock_response, stocks_request) do
     ticker = stock_response["name"]
 
     {:ok, initialValue} =
@@ -25,7 +28,7 @@ defmodule Ticker.History do
     }
   end
 
-  def daily_values(daily_prices, initialValue) do
+  defp daily_values(daily_prices, initialValue) do
     baseline = daily_prices |> List.first() |> List.first()
     factor = initialValue / baseline
 
@@ -33,7 +36,7 @@ defmodule Ticker.History do
     |> Enum.map(fn [price, date] -> [price * factor, date] end)
   end
 
-  def daily_prices(data) do
+  defp daily_prices(data) do
     data
     |> Enum.to_list()
     |> Enum.sort_by(&elem(&1, 0))
@@ -41,12 +44,12 @@ defmodule Ticker.History do
     |> Enum.into([])
   end
 
-  def opening_price(price_data) do
+  defp opening_price(price_data) do
     {price, _} = price_data["open"] |> Float.parse()
     price
   end
 
-  def to_date_and_price({date, price_data}) do
+  defp to_date_and_price({date, price_data}) do
     [opening_price(price_data), date]
   end
 end
