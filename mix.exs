@@ -13,9 +13,6 @@ defmodule Ticker.MixProject do
     ]
   end
 
-  # Configuration for the OTP application.
-  #
-  # Type `mix help compile.app` for more information.
   def application do
     [
       mod: {Ticker.Application, []},
@@ -23,13 +20,9 @@ defmodule Ticker.MixProject do
     ]
   end
 
-  # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "test/support"]
   defp elixirc_paths(_), do: ["lib"]
 
-  # Specifies your project dependencies.
-  #
-  # Type `mix help deps` for examples and options.
   defp deps do
     [
       {:phoenix, "~> 1.4.11"},
@@ -37,7 +30,8 @@ defmodule Ticker.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:corsica, "~> 1.0"},
-      {:httpoison, "~> 1.6"}
+      {:httpoison, "~> 1.6"},
+      {:mock, "~> 0.3.0", only: :test}
     ]
   end
 end
