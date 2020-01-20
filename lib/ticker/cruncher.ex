@@ -1,22 +1,6 @@
 defmodule Ticker.Cruncher do
-  def crunch(history_response, request) do
-    history_response
-    |> Enum.map(fn stock -> transform_stock(stock, getInitialValue(request, stock["name"])) end)
-  end
-
-  defp getInitialValue(stocks, name) do
-    {:ok, initialValue} =
-      Enum.find(stocks, fn %{"ticker" => ticker} -> ticker == name end)
-      |> Map.fetch("initialValue")
-
-    initialValue
-  end
-
-  defp transform_stock(stock, initialValue) do
-    %{
-      ticker: stock["name"],
-      data: daily_price(stock["history"]) |> daily_worth(initialValue)
-    }
+  def crunch(stock, initialValue) do
+    daily_price(stock["history"]) |> daily_worth(initialValue)
   end
 
   defp daily_price(data) do
