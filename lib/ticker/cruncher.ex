@@ -5,10 +5,8 @@ defmodule Ticker.Cruncher do
 
   defp daily_price(data) do
     data
-    |> Enum.to_list()
     |> Enum.sort_by(&elem(&1, 0))
     |> Enum.map(&to_date_and_price/1)
-    |> Enum.into([])
   end
 
   defp daily_worth(daily_price, initialValue) do
