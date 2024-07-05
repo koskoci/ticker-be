@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 config :ticker, TickerWeb.Endpoint,
   url: [host: "localhost"],

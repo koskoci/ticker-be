@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 config :ticker, TickerWeb.Endpoint,
   http: [port: 4002],

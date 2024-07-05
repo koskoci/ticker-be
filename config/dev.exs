@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 api_key = System.get_env("WTD_API_KEY")
 
